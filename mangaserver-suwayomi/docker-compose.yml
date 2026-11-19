@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: mangaserver-suwayomi_server_1
+      APP_PORT: 4567
+      # Suwayomi has no built-in auth; Umbrel's proxy is the login. These paths
+      # are what a Mihon/Tachiyomi phone client and OPDS readers hit directly,
+      # so they bypass the Umbrel login form (LAN-accessible by design).
+      PROXY_AUTH_WHITELIST: "/api/graphql,/api/*,/opds/*"
+
+  server:
+    image: ghcr.io/suwayomi/suwayomi-server:v2.4.2366@sha256:1fac27c387dc2ea9949e1a01ad7f6d6de9d72d3988338a95476748e5c45c4582
+    # Upstream image runs as UID 1000 (`suwayomi`); umbrelOS creates the bind
+    # mount as root, so run as root here instead of asking the user to chown.
+    user: "0:0"
+    init: true
+    restart: on-failure
+    environment:
+      TZ: ${TZ}
+    volumes:
+      - ${APP_DATA_DIR}/data:/home/suwayomi/.local/share/Tachidesk
