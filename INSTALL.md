@@ -21,26 +21,21 @@ folder (no `chown` step, Mihon/Tachiyomi API whitelisted through the proxy).
 
 ## Path B — this staged package (recommended if you want phone clients)
 
-Publish this folder to the Gitea that already runs on your Umbrel, then add it
-as a community store.
+Already published to your Gitea as a public repo, so there is nothing to run.
+Add it as a community store:
 
-On the umbrelOS host terminal (Settings -> Advanced Settings -> Terminal ->
-App -> Host):
+1. App Store -> three dots (top right) -> **Community App Stores**
+2. Paste `http://umbrel.local:3000/panda/suwayomi-store.git` -> **Add**
+   (if the hostname does not resolve, use `http://192.168.100.113:3000/panda/suwayomi-store.git`)
+3. Three dots -> **Open** -> install **Suwayomi**
+
+To republish after editing the package:
 
 ```bash
-# 1. one-time Gitea token: Gitea -> Settings -> Applications -> Generate New Token (write:repository)
-export GITEA_TOKEN=<paste-token>
-
-# 2. publish (files live in the Hermes app data directory)
-cd /home/umbrel/umbrel/app-data/hermes-agent/data/hermes/suwayomi-store
-sh publish-store-to-gitea.sh http://localhost:3000 <your-gitea-user> suwayomi-store
+export GITEA_TOKEN=<Gitea -> Settings -> Applications -> token with write:repository>
+cd /opt/data/suwayomi-store
+sh publish-store-to-gitea.sh http://10.21.0.1:8085 panda suwayomi-store
 ```
-
-The script prints the store URL, e.g.
-`http://localhost:3000/<user>/suwayomi-store.git`.
-
-Then: App Store -> three dots -> **Community App Stores** -> paste that URL ->
-**Add** -> three dots -> **Open** -> install **Suwayomi**.
 
 Notes:
 
