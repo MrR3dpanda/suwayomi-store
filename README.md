@@ -20,4 +20,4 @@ mangaserver-suwayomi/     # app package; folder name == app id
   Umbrel login.
 - Persistence: `${APP_DATA_DIR}/data` -> `/home/suwayomi/.local/share/Tachidesk`.
 
-See `INSTALL.md` for the publish + install clicks.
+See `INSTALL.md` for the install clicks.
